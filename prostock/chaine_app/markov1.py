@@ -143,7 +143,7 @@ def registerParamMarkovS():
 def nbClientsFileWindow(j,lamb,mu):
     try:
         jcontrol=float(j)
-        if(j>=0):
+        if(jcontrol>=0):
             chaine=Markov1(lamb,mu)
             qj=chaine.__jClientFile__(jcontrol)
             
@@ -162,8 +162,8 @@ def nbClientsFileWindow(j,lamb,mu):
 
 def tempsSejourSystemWindow(t,lamb,mu):
     try:
-        if(t>=0):
-            tcontrol=int(t)
+        tcontrol=int(t)
+        if(tcontrol>=0):
             chaine=Markov1(lamb,mu)
             ResTempsSejourSystem = chaine.__tempsSejourSysteme__(tcontrol)
 
@@ -183,8 +183,8 @@ def tempsSejourSystemWindow(t,lamb,mu):
     
 def nbClientsFileWindow1K(j,lamb,mu,k):
     try:
-        if(j>=0):
-            jcontrol=float(j)
+        jcontrol=float(j)
+        if(jcontrol>=0):
             chaine=Markov1K(lamb,mu,k)
             qj=chaine.__jClientFile__(jcontrol)
             
@@ -203,8 +203,8 @@ def nbClientsFileWindow1K(j,lamb,mu,k):
 
 def tempsSejourSystemWindow1K(t,lamb,mu,k):
     try:
-        if(t>=0):
-            tcontrol=int(t)
+        tcontrol=int(t)
+        if(tcontrol>=0):
             chaine=Markov1K(lamb,mu,k)
             ResTempsSejourSystem = chaine.__tempsSejourSysteme__(tcontrol)
 
@@ -223,8 +223,8 @@ def tempsSejourSystemWindow1K(t,lamb,mu,k):
 
 def nbClientsFileWindowS(j,lamb,mu,s):
     try:
-        if(j>=0):
-            jcontrol=float(j)
+        jcontrol=float(j)
+        if(jcontrol>=0):
             chaine=MarkovS(lamb,mu,s)
             qj=chaine.__jClientFile__(jcontrol)
             
@@ -243,8 +243,8 @@ def nbClientsFileWindowS(j,lamb,mu,s):
 
 def tempsSejourSystemWindowS(t,lamb,mu,s):
     try:
-        if(t>=0):
-            tcontrol=int(t)
+        tcontrol=int(t)
+        if(tcontrol>=0):
             chaine=MarkovS(lamb,mu,s)
             ResTempsSejourSystem = chaine.__tempsSejourSysteme__(tcontrol)
 
@@ -263,8 +263,8 @@ def tempsSejourSystemWindowS(t,lamb,mu,s):
 
 def DureeAttenteSansServiceS(t,lamb,mu,s):
     try:
-        if(t>=0):
-            tcontrol=int(t)
+        tcontrol=int(t)
+        if(tcontrol>=0):
             chaine=MarkovS(lamb,mu,s)
             ResDureeAttenteSansService = chaine.__DureeAttenteSansService__(tcontrol)
 
@@ -287,83 +287,83 @@ def registerMarkov1(lamb,mu):
         i=float(lamb)
         j=float(mu)
         
-        if(i>=j):
-            raise ValueError('Erreur','Attention, la condition lambda < mu (rho < 1) doit être satisfaite pour continuer.')
-        if(i<0 or j<0):
-            raise ValueError('Erreur','Attention, la condition lambda et mu >0 doit être satisfaite pour continuer.')
+        #if(i>=j):
+        #    raise ValueError('Erreur','Attention, la condition lambda < mu (rho < 1) doit être satisfaite pour continuer.')
+        #if(i<0 or j<0):
+        #    raise ValueError('Erreur','Attention, la condition lambda et mu >0 doit être satisfaite pour continuer.')
 
-            toplevel = Tk() 
-            CreateCommonMenubar(toplevel)
-            toplevel.title("M/M/1 Résaultats")
-            # set the background colour of GUI window 
-            toplevel.configure(background="white") 
-            w =  toplevel.winfo_screenwidth()/2+250
-            h =  toplevel.winfo_screenheight()/2-350
-            toplevel.geometry("390x315+"+str(int(w))+"+"+str(int(h))) 
-            toplevel.resizable(0,0)
-            policeTitle = subFont.Font(family='Helvetica', size=14, weight='normal')
+        toplevel = Tk() 
+        CreateCommonMenubar(toplevel)
+        toplevel.title("M/M/1 Résaultats")
+        # set the background colour of GUI window 
+        toplevel.configure(background="white") 
+        w =  toplevel.winfo_screenwidth()/2+250
+        h =  toplevel.winfo_screenheight()/2-350
+        toplevel.geometry("390x315+"+str(int(w))+"+"+str(int(h))) 
+        toplevel.resizable(0,0)
+        policeTitle = subFont.Font(family='Helvetica', size=14, weight='normal')
 
-            rows = 0
-            while rows < 12:
-                toplevel.rowconfigure(rows,weight=1)
-                toplevel.columnconfigure(rows,weight=1)
-                rows +=1
+        rows = 0
+        while rows < 12:
+            toplevel.rowconfigure(rows,weight=1)
+            toplevel.columnconfigure(rows,weight=1)
+            rows +=1
 
-            chaine = Markov1(i,j)
+        chaine = Markov1(i,j)
 
-            Label(toplevel, font=policeTitle, text='Résultats M/M/1',background="white").grid(columnspan=4, ipadx=110)
-            
-            #Lambda
-            Label(toplevel, text='Lambda',background="white").grid(row=1, column=0)   
-            Label(toplevel, text=i,background="white").grid(row=1, column=1)
-            #Mu
-            Label(toplevel, text='Mu',background="white").grid(row=1, column=2)   
-            Label(toplevel, text=j,background="white").grid(row=1, column=3)
-            #Calcul de Rho
-            Label(toplevel, text='Rho',background="white").grid(row=2, column=0)   
-            Label(toplevel, text=str(chaine.rho),background="white").grid(row=2, column=1)
-            #Calcul de la duree moyenne de service
-            Label(toplevel, text='Temps service',background="white").grid(row=2, column=2)   
-            Label(toplevel, text='    '+str(chaine.tmpsServ),background="white").grid(row=2, column=3)
-            #Nombre moyen de clients dans le système
-            Label(toplevel, text='L',background="white").grid(row=3, column=0)   
-            Label(toplevel, text=str(chaine.L),background="white").grid(row=3, column=1)
-            #Nombre moyen de clients dans la file
-            Label(toplevel, text='Lq',background="white").grid(row=3, column=2)   
-            Label(toplevel, text='    '+str(chaine.Lq),background="white").grid(row=3, column=3)
-            #Duree moyenne d'attente dans le système
-            Label(toplevel, text='w',background="white").grid(row=4, column=0)   
-            Label(toplevel, text=str(chaine.w),background="white").grid(row=4, column=1)
-            #Duree moyenne d'attente dans la file
-            Label(toplevel, text='wq',background="white").grid(row=4, column=2)   
-            Label(toplevel, text='    '+str(chaine.wq),background="white").grid(row=4, column=3)
-            #Calcul aucun clients dans la file_
-            Label(toplevel, text='q0',background="white").grid(row=5, column=0)   
-            Label(toplevel, text=str(chaine.q0),background="white").grid(row=5, column=1)
-            #Calcul de j clients dans la file
-            Label(toplevel, text='j =',background="white").grid(row=6, column=0)   
-            QJ_field = Entry(toplevel, justify="right")
-            QJ_field.grid(row=6, column=1)
-            buttonQJ = Button(toplevel, command= lambda : nbClientsFileWindow(QJ_field.get(),chaine.lamb,chaine.mu), text='Calculer qj', fg='black', bg='white', height=1, width=10)
-            buttonQJ.grid(row=6, column=2)
-            #Temps de séjour dans le système
-            Label(toplevel, text='t =',background="white").grid(row=7, column=0)   
-            TmpsSej_field = Entry(toplevel, justify="right")
-            TmpsSej_field.grid(row=7, column=1)
-            buttonTmpsSej = Button(toplevel, command= lambda :tempsSejourSystemWindow(TmpsSej_field.get(),chaine.lamb,chaine.mu), text='P(Tau > t)', fg='black', bg='white', height=1, width=10)
-            buttonTmpsSej.grid(row=7, column=2)
-            
+        Label(toplevel, font=policeTitle, text='Résultats M/M/1',background="white").grid(columnspan=4, ipadx=110)
+        
+        #Lambda
+        Label(toplevel, text='Lambda',background="white").grid(row=1, column=0)   
+        Label(toplevel, text=i,background="white").grid(row=1, column=1)
+        #Mu
+        Label(toplevel, text='Mu',background="white").grid(row=1, column=2)   
+        Label(toplevel, text=j,background="white").grid(row=1, column=3)
+        #Calcul de Rho
+        Label(toplevel, text='Rho',background="white").grid(row=2, column=0)   
+        Label(toplevel, text=str(chaine.rho),background="white").grid(row=2, column=1)
+        #Calcul de la duree moyenne de service
+        Label(toplevel, text='Temps service',background="white").grid(row=2, column=2)   
+        Label(toplevel, text='    '+str(chaine.tmpsServ),background="white").grid(row=2, column=3)
+        #Nombre moyen de clients dans le système
+        Label(toplevel, text='L',background="white").grid(row=3, column=0)   
+        Label(toplevel, text=str(chaine.L),background="white").grid(row=3, column=1)
+        #Nombre moyen de clients dans la file
+        Label(toplevel, text='Lq',background="white").grid(row=3, column=2)   
+        Label(toplevel, text='    '+str(chaine.Lq),background="white").grid(row=3, column=3)
+        #Duree moyenne d'attente dans le système
+        Label(toplevel, text='w',background="white").grid(row=4, column=0)   
+        Label(toplevel, text=str(chaine.w),background="white").grid(row=4, column=1)
+        #Duree moyenne d'attente dans la file
+        Label(toplevel, text='wq',background="white").grid(row=4, column=2)   
+        Label(toplevel, text='    '+str(chaine.wq),background="white").grid(row=4, column=3)
+        #Calcul aucun clients dans la file_
+        Label(toplevel, text='q0',background="white").grid(row=5, column=0)   
+        Label(toplevel, text=str(chaine.q0),background="white").grid(row=5, column=1)
+        #Calcul de j clients dans la file
+        Label(toplevel, text='j =',background="white").grid(row=6, column=0)   
+        QJ_field = Entry(toplevel, justify="right")
+        QJ_field.grid(row=6, column=1)
+        buttonQJ = Button(toplevel, command= lambda : nbClientsFileWindow(QJ_field.get(),chaine.lamb,chaine.mu), text='Calculer qj', fg='black', bg='white', height=1, width=10)
+        buttonQJ.grid(row=6, column=2)
+        #Temps de séjour dans le système
+        Label(toplevel, text='t =',background="white").grid(row=7, column=0)   
+        TmpsSej_field = Entry(toplevel, justify="right")
+        TmpsSej_field.grid(row=7, column=1)
+        buttonTmpsSej = Button(toplevel, command= lambda :tempsSejourSystemWindow(TmpsSej_field.get(),chaine.lamb,chaine.mu), text='P(Tau > t)', fg='black', bg='white', height=1, width=10)
+        buttonTmpsSej.grid(row=7, column=2)
+        
 
-            Label(toplevel, text='',background="white").grid(row=8, column=0)
+        Label(toplevel, text='',background="white").grid(row=8, column=0)
 
-            button1 = Button(toplevel, command= toplevel.destroy, text=' Fermer ', fg='black', bg='white', height=1, width=15)
-            button1.place(x=255,y=275)
+        button1 = Button(toplevel, command= toplevel.destroy, text=' Fermer ', fg='black', bg='white', height=1, width=15)
+        button1.place(x=255,y=275)
 
-    except ValueError as error:
+    except ValueError:
         #Handle the exception
-        if(error):
-            messagebox.showerror(error.args[0], error.args[1])
-        else :
+        #if(error):
+        #    messagebox.showerror(error.args[0], error.args[1])
+        #else :
             messageAlert('Erreur, veuillez entrer des valeurs numériques pour lambda et mu.')
 
 

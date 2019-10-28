@@ -102,6 +102,8 @@ class Markov1K:
         self.K = k
         self.rho = self.__ro__()
         self.tmpsServ = self.__tempsMoyService__()
+        self.L = self.__nbreMoyClientSysteme__()
+        self.q0 = self.__jClientFile__(0)
         self.Lq = self.__nbreMoyClientFile__()
         self.s = round((1/(1-self.rho))-1,5)
         self.w = self.__dureeMoyAttenteSysteme__()
@@ -120,7 +122,7 @@ class Markov1K:
             return round((self.rho*(1-(self.K+1)*pow(self.rho,self.K)+self.K*pow(self.rho,self.K+1)))/((1-self.rho)*(1-pow(self.rho,self.K+1))),5)
     
     def __nbreMoyClientFile__(self):#Change peut être
-        return round(pow(self.lamb,2)/(self.mu*(self.mu-self.lamb)),5)
+        return round(self.L-(1-self.q0),5)
     
     def __jClientFile__(self,j): #Change
         if(self.rho == 1):
