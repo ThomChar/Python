@@ -17,18 +17,34 @@ while request:
     if choice == "1":
         file = input("Choisir un nom de fichier : ")
     elif choice == "2":
-        textadded = input("Entrer le texte à ajouter : ")
-        with open(file,'a') as fic:
-            fic.write(textadded+"\n")
-        fic.close()
+        try:
+            textadded = input("Entrer le texte à ajouter : ")
+            with open(file,'a') as fic:
+                fic.write(textadded+"\n")
+        except:
+            print("Une erreur est survenue lors de l'écriture du texte.\n")
+        else:
+            print("L'ajout du texte a été effectué  avec succès.\n")
+        finally:
+            fic.close()
     elif choice == "3":
-        with open(file,'r') as fic:
-            print(fic.read())
-        fic.close()
+        try:
+            with open(file,'r') as fic:
+                print(fic.read())
+        except:
+            print("Une erreur est survenue lors de la lecture du fichier.\n")
+        finally:
+            fic.close()
     elif choice == "4":
-        fic = open(file,'wt')
-        fic.flush()
-        fic.close()
+        try:
+            fic = open(file,'wt')
+            fic.flush()
+        except:
+            print("Le fichier n'a pas pu être vidé.\n")
+        else:
+            print("Le fichier a été vidé avec succès.\n")
+        finally:
+            fic.close()
     else:
         request = False
 
