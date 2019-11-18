@@ -8,31 +8,23 @@ main = Tk()
 main.title('Authentication Box')
 main.geometry('300x200')
  
+
+# clear_widget : Clear values in username_box and in password_box
 def clear_widget(event):
- 
-    # will clear out any entry boxes defined below when the user shifts
-    # focus to the widgets defined below
     if username_box == main.focus_get() and username_box.get() == PSEUDO_DEFAULT_INPUT:
         username_box.delete(0, END)
     elif password_box == password_box.focus_get() and password_box.get() == '     ':
         password_box.delete(0, END)
  
+# repopulate_defaults : Put values of defaults in username_box and in password_box
 def repopulate_defaults(event):
- 
-    # will repopulate the default text previously inside the entry boxes defined below if
-    # the user does not put anything in while focused and changes focus to another widget
     if username_box != main.focus_get() and username_box.get() == '':
         username_box.insert(0, PSEUDO_DEFAULT_INPUT)
     elif password_box != main.focus_get() and password_box.get() == '':
         password_box.insert(0, '     ')
  
+# login : Event of login
 def login(*event):
-    # TODO : Check username and password
-    
-    # Able to be called from a key binding or a button click because of the '*event'
-    print ('Username: ' + username_box.get())
-    print ('Password: ' + password_box.get())
-
     login = username_box.get()
     password = password_box.get()
 
@@ -41,7 +33,8 @@ def login(*event):
         if(pseudoIsExiste(login) == False) :
             raise ValueError("Identifiant incorrecte", "L'identifiant est incorrecte.")
 
-        if(checkPassword(login, password) == False) :
+        passwordOfPseudo = getPasswordByPseudo(login)
+        if(verify_password(passwordOfPseudo, password) == False) :
             raise ValueError("Identifiant incorrecte", "Le mot de passe est incorrecte.")
 
         print("Vous êtes connectés !")
@@ -50,8 +43,6 @@ def login(*event):
         messagebox.showerror(error.args[0], error.args[1])
 
     #main.destroy()
-    # If I wanted I could also pass the username and password I got above to another 
-    # function from here.
 
 #reader()
 # defines a grid 50 x 50 cells in the main window

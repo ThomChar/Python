@@ -7,27 +7,25 @@ def register() :
     main.title('Register Box')
     main.geometry('200x200')
     
+    # clear_widget : Clear values in username_box and in password_box
     def clear_widget(event):
-    
-        # will clear out any entry boxes defined below when the user shifts
-        # focus to the widgets defined below
         if username_box == main.focus_get() and username_box.get() == PSEUDO_DEFAULT_INPUT:
             username_box.delete(0, END)
         elif password_box == password_box.focus_get() and password_box.get() == '     ':
             password_box.delete(0, END)
-    
+
+    # repopulate_defaults : Put values of defaults in username_box and in password_box
     def repopulate_defaults(event):
-    
-        # will repopulate the default text previously inside the entry boxes defined below if
-        # the user does not put anything in while focused and changes focus to another widget
         if username_box != main.focus_get() and username_box.get() == '':
             username_box.insert(0, PSEUDO_DEFAULT_INPUT)
         elif password_box != main.focus_get() and password_box.get() == '':
             password_box.insert(0, '     ')
     
+    # cancel : close register windows
     def cancel(*event) :
         main.destroy()
 
+    # register : Event to register
     def register() :
         login = username_box.get()
         password = password_box.get()
@@ -47,8 +45,9 @@ def register() :
             
             # verif if login is available
             if(pseudoIsExiste(login) == False) :
-                save_register(login, hash(password))
+                save_register(login, hash_password(password))
                 print("Writing complete")
+                main.destroy()
             else:
                 print("Le pseudo existe déjà.")
                 messagebox.showerror("Pseudo déjà existant", "Le pseudo existe déjà : \""+login+"\".")   
@@ -60,15 +59,6 @@ def register() :
         with open(PSEUDOS_FILE, mode='a') as employee_file:
             employee_writer = csv.writer(employee_file, delimiter=';', lineterminator="\n")
             employee_writer.writerow([login, hashpassword])
-
-    def signUp(*event):
-    
-        # Able to be called from a key binding or a button click because of the '*event'
-        print ('Username: ' + username_box.get())
-        print ('Password: ' + password_box.get())
-        main.destroy()
-        # If I wanted I could also pass the username and password I got above to another 
-        # function from here.
     
     # defines a grid 50 x 50 cells in the main window
     rows = 0
