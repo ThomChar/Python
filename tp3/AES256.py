@@ -1,6 +1,8 @@
 from Crypto.Cipher import AES
 from password import *
 
+CRYPTO_FILE = "crypto.csv"
+
 def crypto(password, data) :
     key = password.encode()
     cipher = AES.new(key, AES.MODE_EAX)
@@ -19,6 +21,11 @@ def decrypt(password, ciphertext, tag, nonce) :
         print("The message is authentic:", plaintext.decode())
     except ValueError:
         print("Key incorrect or message corrupted")
+
+def save_crypto(login, hashpassword) :
+    with open(CRYPTO_FILE, mode='a') as employee_file:
+        #employee_writer = csv.writer(employee_file, delimiter=';', lineterminator="\n")
+        #employee_writer.writerow([login, hashpassword])
 
 password = 'Sixteen byte key'
 data = "Hello, I m Rémi and I like chocolate."
