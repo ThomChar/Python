@@ -8,12 +8,12 @@ from math import *
 from chaine import *
 import tkinter.font as subFont
 
-def CreateCommonMenubar(gui):
+def CreateCommonMenubar(gui, helpText):
     #Add a menu bar
 	menubar = Menu(gui)
 
 	menu1 = Menu(menubar, tearoff=0)
-	menu1.add_command(label="Aide",command= lambda:messageAideGeneral(" "))
+	menu1.add_command(label="Aide",command= lambda:messageAideGeneral(helpText))
 	menu1.add_separator()
 	menu1.add_command(label="Quitter", command=gui.quit)
 	menubar.add_cascade(label="Menu", menu=menu1)
@@ -37,7 +37,10 @@ def registerParamMarkov1():
     toplevel.resizable(0,0)
     policeTitle = subFont.Font(family='Helvetica', size=14, weight='normal')
 
-    CreateCommonMenubar(toplevel)
+    helpText = "Explication des notations : \n\nLambda : Nombre moyen de clients arrivant par unité de temps \nMu : Service par unité de temps en moyenne \nIndication : 1/Mu correspond à la durée de moyenne de service \nAttention ! \nLe rapport Lambda / Mu doit être < 1"
+
+
+    CreateCommonMenubar(toplevel, helpText)
 
     rows = 0
     while rows < 4:
@@ -68,12 +71,14 @@ def registerParamMarkov1K():
     # set the background colour of GUI window 
     toplevel.configure(background="white") 
     # set the title of GUI window 
-    toplevel.title("M/M/S")
+    toplevel.title("M/M/K")
     toplevel.geometry("290x330")
     toplevel.resizable(0,0)
     policeTitle = subFont.Font(family='Helvetica', size=14, weight='normal')
 
-    CreateCommonMenubar(toplevel)
+    helpText = "Explication des notations : \n\nLambda : Nombre moyen de clients arrivant par unité de temps \nMu : Service par unité de temps en moyenne \nIndication : 1/Mu correspond à la durée de moyenne de service\nK : Nombre de clients au maximum dans le système"
+
+    CreateCommonMenubar(toplevel,helpText)
 
     rows = 0
     while rows < 5:
@@ -81,7 +86,7 @@ def registerParamMarkov1K():
         toplevel.columnconfigure(rows,weight=1)
         rows +=1
 
-    Label(toplevel, font=policeTitle, text='M/M/S',background="white").grid(columnspan=3, ipadx=110)
+    Label(toplevel, font=policeTitle, text='M/M/K',background="white").grid(columnspan=3, ipadx=110)
     Label(toplevel, text='Nbre Moy. clients (Lambda)',background="white").grid(row=1, column=0)   
     lambda_field = Entry(toplevel, justify="right")
     lambda_field.grid(row=1, column=1)
@@ -111,7 +116,9 @@ def registerParamMarkovS():
     toplevel.resizable(0,0)
     policeTitle = subFont.Font(family='Helvetica', size=14, weight='normal')
 
-    CreateCommonMenubar(toplevel)
+    helpText = "Explication des notations : \n\nLambda : Nombre moyen de clients arrivant par unité de temps \nMu : Service par unité de temps en moyenne \n Indication : 1/Mu correspond à la durée de moyenne de service\nS : Nombre de serveurs (avec S>1)"
+
+    CreateCommonMenubar(toplevel,helpText)
 
     rows = 0
     while rows < 5:
@@ -148,7 +155,7 @@ def nbClientsFileWindow(j,lamb,mu):
             qj=chaine.__jClientFile__(jcontrol)
             
             toplevel = Toplevel()
-            CreateCommonMenubar(toplevel)
+            CreateCommonMenubar(toplevel,"")
             toplevel.resizable(0,0)
             toplevel.title("Qj")
             Label(toplevel, text='Pour j = '+j+', Qj =').grid(row=1, column=0)
@@ -168,7 +175,7 @@ def tempsSejourSystemWindow(t,lamb,mu):
             ResTempsSejourSystem = chaine.__tempsSejourSysteme__(tcontrol)
 
             toplevel = Toplevel()
-            CreateCommonMenubar(toplevel)
+            CreateCommonMenubar(toplevel,"")
             toplevel.resizable(0,0)
             toplevel.title("P(Tau > t)")
             Label(toplevel, text='P(Tau > t) = ').grid(row=0, column=0)
@@ -189,7 +196,7 @@ def nbClientsFileWindow1K(j,lamb,mu,k):
             qj=chaine.__jClientFile__(jcontrol)
             
             toplevel = Toplevel()
-            CreateCommonMenubar(toplevel)
+            CreateCommonMenubar(toplevel,"")
             toplevel.resizable(0,0)
             toplevel.title("Qj")
             Label(toplevel, text='Pour j = '+j+', Qj =').grid(row=1, column=0)
@@ -209,7 +216,7 @@ def tempsSejourSystemWindow1K(t,lamb,mu,k):
             ResTempsSejourSystem = chaine.__tempsSejourSysteme__(tcontrol)
 
             toplevel = Toplevel()
-            CreateCommonMenubar(toplevel)
+            CreateCommonMenubar(toplevel,"")
             toplevel.resizable(0,0)
             toplevel.title("P(Tau > t)")
             Label(toplevel, text='P(Tau > t) = ').grid(row=0, column=0)
@@ -229,7 +236,7 @@ def nbClientsFileWindowS(j,lamb,mu,s):
             qj=chaine.__jClientFile__(jcontrol)
             
             toplevel = Toplevel()
-            CreateCommonMenubar(toplevel)
+            CreateCommonMenubar(toplevel,"")
             toplevel.resizable(0,0)
             toplevel.title("Qj")
             Label(toplevel, text='Pour j = '+j+', Qj =').grid(row=1, column=0)
@@ -249,7 +256,7 @@ def tempsSejourSystemWindowS(t,lamb,mu,s):
             ResTempsSejourSystem = chaine.__tempsSejourSysteme__(tcontrol)
 
             toplevel = Toplevel()
-            CreateCommonMenubar(toplevel)
+            CreateCommonMenubar(toplevel,"")
             toplevel.resizable(0,0)
             toplevel.title("P(Tau > t)")
             Label(toplevel, text='P(Tau > t) = ').grid(row=0, column=0)
@@ -269,7 +276,7 @@ def DureeAttenteSansServiceS(t,lamb,mu,s):
             ResDureeAttenteSansService = chaine.__DureeAttenteSansService__(tcontrol)
 
             toplevel = Toplevel()
-            CreateCommonMenubar(toplevel)
+            CreateCommonMenubar(toplevel,"")
             toplevel.resizable(0,0)
             toplevel.title("P(TauQ > t)")
             Label(toplevel, text='P(TauQ > t) = ').grid(row=0, column=0)
@@ -293,7 +300,11 @@ def registerMarkov1(lamb,mu):
         #    raise ValueError('Erreur','Attention, la condition lambda et mu >0 doit être satisfaite pour continuer.')
 
         toplevel = Tk() 
-        CreateCommonMenubar(toplevel)
+
+        helpText = "Explication des notations : \n\nRho : Lambda / Mu \nTemps de service : Durée de moyenne de service \nq0 : Probabilité de n'avoir aucun client dans la file \nL : Nombre moyen de clients dans le système \nLq : Nombre moyen de clients dans la file \nW : Durée moyenne d'attente dans le système\nWq : Durée moyenne d'attente dans la file \nqj : Probabilité d'avoir j clients dans la file\nP(Tau > t) : Probabilité pour un client de rester un temps de séjour Tau dans le système"
+
+        CreateCommonMenubar(toplevel,helpText)
+
         toplevel.title("M/M/1 Résaultats")
         # set the background colour of GUI window 
         toplevel.configure(background="white") 
@@ -373,7 +384,10 @@ def registerMarkov1K(lamb,mu,k):
         j=float(mu)
         K=int(k)
         toplevel = Tk() 
-        CreateCommonMenubar(toplevel)
+
+        helpText = "Explication des notations : \n\nRho : Lambda / Mu \nTemps de service : Durée de moyenne de service \nq0 : Probabilité de n'avoir aucun client dans la file \nL : Nombre moyen de clients dans le système \nLq : Nombre moyen de clients dans la file \nW : Durée moyenne d'attente dans le système\nWq : Durée moyenne d'attente dans la file \nqj : Probabilité d'avoir j clients dans la file\nP(Tau > t) : Probabilité pour un client de rester un temps de séjour Tau dans le système"
+        CreateCommonMenubar(toplevel,helpText)
+
         toplevel.title("M/M/1/K Résaultats")
         # set the background colour of GUI window 
         toplevel.configure(background="white") 
@@ -454,7 +468,10 @@ def registerMarkovS(lamb,mu,s):
         S=int(s)
         if(S>1):
             toplevel = Tk() 
-            CreateCommonMenubar(toplevel)
+
+            helpText = "Explication des notations : \n\nRho : Lambda / Mu \nTemps de service : Durée de moyenne de service \nq0 : Probabilité de n'avoir aucun client dans la file \nL : Nombre moyen de clients dans le système \nLq : Nombre moyen de clients dans la file \nW : Durée moyenne d'attente dans le système\nWq : Durée moyenne d'attente dans la file \nqj : Probabilité d'avoir j clients dans la file\nP(Tau > t) : Probabilité pour un client de rester un temps de séjour Tau dans le système\nP(Tauq > t) : Probabilité d'attendre sans service une durée Tauq"
+            CreateCommonMenubar(toplevel,helpText)
+
             toplevel.title("M/M/S Résaultats")
             # set the background colour of GUI window 
             toplevel.configure(background="white") 

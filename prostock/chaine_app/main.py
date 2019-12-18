@@ -1,7 +1,3 @@
-# Python program to create a simple GUI 
-# calculator using Tkinter 
-
-# import everything from tkinter module 
 from tkinter import *
 from tkinter.messagebox import *
 from math import *
@@ -9,7 +5,6 @@ from markov1 import *
 import tkinter.font as tkFont
 from pathlib import Path
 
-# globally declare the expression variable
 
 def messageAide():
     showinfo("Aide", "Veuillez choisir un type de chaine de markov et rentrer les paramètres appropriés pour obtenir un résultat")
@@ -66,10 +61,6 @@ if __name__ == "__main__":
 	gui.config(menu=menubar)
 
 	# create a Buttons and place at a particular 
-	# location inside the root window . 
-	# when user press the button, the command or 
-	# function affiliated to that button is executed .
-	#print(mode)
 	button1 = Button(gui, command= registerParamMarkov1, text=' M/M/1 ', fg='black', bg='white', height=2, width=7)
 	button1.grid(row=2, column=0) 
 
