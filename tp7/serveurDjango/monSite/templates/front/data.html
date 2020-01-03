@@ -1,0 +1,51 @@
+<style>
+    .warning {
+        color: red;
+        list-style:none;
+        margin-left:0;
+        padding-left:0;
+    }
+    .success {
+        color: green;
+        list-style:none;
+        margin-left:0;
+        padding-left:0;
+    }
+    .info {
+        list-style:none;
+        margin-left:0;
+        padding-left:0;
+        padding: 0.5em;
+        margin: 0.5em;
+        background : rgba(0, 0, 255, 0.5);
+    }
+</style>
+<center>
+    <h1>Mes informations</h1>
+    <p>Connecté en tant que {{ request.session.pseudo }}</p>
+    <a type="button" href="logout">Se déconnecter</a>
+
+    <!-- Message -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- ajout de données -->
+    <form method="post" role="form" action="/data">
+        {% csrf_token %}
+        {{form.as_ul}}
+        <textarea name="data" id="data"></textarea>
+        <input type="submit" value="ajouter" />
+    </form>
+
+    <!-- les données -->
+    <ul class="infos">
+        {% for info in infos %}
+            <li class="info" >{{ info.texte  }}</li>
+        {% endfor %}
+    </ul>
+</center>

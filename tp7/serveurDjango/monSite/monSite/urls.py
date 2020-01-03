@@ -16,9 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
-from backoffice.views import home
+from backoffice.views import *
+
+
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url("home", home, name='home'),
+    url('data', DataView.as_view()),
+    url('register', RegisterView.as_view()),
+    url('logout', LogoutView.as_view()),
+    url('', LoginView.as_view()),
+    
+    
 ]

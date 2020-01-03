@@ -1,0 +1,30 @@
+<style>
+.warning {
+    color: red;
+    list-style:none;
+    margin-left:0;
+    padding-left:0;
+}
+</style>
+<center>
+    <h1>Créer un compte</h1>
+    <p>J'ai déjà un compte, <a href="/">se connecter</a>.</p>
+
+    <!-- Message -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- formulaire de création de compte -->
+    <form method="post" role="form" action="register">
+        {% csrf_token %}
+        {{form.as_ul}}
+        <input type="text" name="username" placeholder="Utilisateur">
+        <input type="password" name="password" placeholder="Mot de passe">
+        <input type="submit" value="S'enregistrer" />
+    </form>
+</center>

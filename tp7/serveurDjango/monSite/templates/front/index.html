@@ -1,0 +1,35 @@
+<style>
+    .warning {
+        color: red;
+        list-style:none;
+        margin-left:0;
+        padding-left:0;
+    }
+    .success {
+        color: green;
+        list-style:none;
+        margin-left:0;
+        padding-left:0;
+    }
+</style>
+<center>
+<h1>Connexion</h1>
+<p>Vous devez être connectés pour voir le contenu. Créer un compte <a href="register">ici</a>.</p>
+
+<!-- Message -->
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+<form method="post"  role="form" action="/account">
+    {% csrf_token %}
+    {{form.as_ul}}
+    <input type="text" name="username" placeholder="Utilisateur">
+    <input type="password" name="password" placeholder="Mot de passe">
+    <input type="submit" value="Se connecter" />
+    </form>
+</center>
